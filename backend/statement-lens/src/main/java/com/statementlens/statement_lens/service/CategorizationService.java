@@ -21,11 +21,21 @@ public class CategorizationService {
     public Transaction categorize(Transaction transaction) {
 
         // 1. Get the description from the transaction and lowercase it
+        String description = transaction.getDescription().toLowerCase();
         // 2. Loop through each entry in KEYWORDS
-        // 3. Check if any keyword in the list appears in the description
-        // 4. If yes, set that category on the transaction and break
-        // 5. If nothing matched, set category to "Other"
-        // 6. Return the transaction
+        for (Map.Entry<String, List<String>> entry : KEYWORDS.entrySet()) {
+            String category = entry.getKey();
+            List<String> keywords = entry.getValue();
+            // 3. Check if any keyword in the list appears in the description
+            for (String keyword : keywords) {
+                if (description.contains(keyword)) {
+                    transaction.setCategory(category);
+                    return transaction;
+                }
+            }
+        }
+        transaction.setCategory("Other");
+        return transaction;
 
     }
 }

@@ -7,32 +7,39 @@ Running list of concepts introduced during the build. Review these before each s
 ## Java & Spring Boot Fundamentals
 
 ### Why Spring exists
+
 Java EE required massive boilerplate to wire up even basic applications. Spring removed that by handling dependency injection — you declare what your class needs, Spring provides it.
 
 ### Why Spring Boot exists
+
 Spring itself became boilerplate (especially XML config). Spring Boot introduced **convention over configuration** — it looks at your classpath, makes sensible defaults, and auto-configures everything. That's why it's called "Boot" — it bootstraps the app for you.
 
 ### @SpringBootApplication
+
 Bundles three annotations:
+
 - `@SpringBootConfiguration` — marks this as a config class
 - `@EnableAutoConfiguration` — triggers the auto-setup
 - `@ComponentScan` — tells Spring to scan this package for components (controllers, services, etc.)
 
 ### MVC + Layers
-| Layer | Responsibility | Our project |
-|---|---|---|
-| Controller | Receives HTTP requests, returns responses | `AnalyzeController.java` |
-| Service | Business logic | `CsvParserService`, `CategorizationService`, etc. |
-| Repository | Talks to the database (reads/writes) | Not used — we're stateless |
-| Model | Plain data class (fields only) | `Transaction.java` |
-| View | Renders the UI | React handles this — backend returns JSON |
+
+| Layer      | Responsibility                            | Our project                                       |
+| ---------- | ----------------------------------------- | ------------------------------------------------- |
+| Controller | Receives HTTP requests, returns responses | `AnalyzeController.java`                          |
+| Service    | Business logic                            | `CsvParserService`, `CategorizationService`, etc. |
+| Repository | Talks to the database (reads/writes)      | Not used — we're stateless                        |
+| Model      | Plain data class (fields only)            | `Transaction.java`                                |
+| View       | Renders the UI                            | React handles this — backend returns JSON         |
 
 **Key distinction:** Logic lives in the Service, not the Controller. The Controller just routes.
 
 ### Repository vs ORM
+
 Same concept as Django ORM — abstracts database access. In Spring: Spring Data JPA + `JpaRepository`. We don't use it in this project because there's no database.
 
 ### XML in old Spring
+
 Like `tsconfig.json` but far more verbose — 30+ lines of XML for what would be 5 lines of JSON today. Spring Boot replaced this with auto-configuration and annotations.
 
 ---
@@ -44,12 +51,14 @@ The embedded web server bundled inside Spring Boot. It listens for incoming HTTP
 Analogy: Tomcat is the door, your Spring app is what's inside the house.
 
 ### 404 vs Connection Refused
+
 - **404** — server is running, no route matched the request
 - **Connection refused** — server isn't running at all
 
 ## Java Package Naming
 
 Packages follow reverse domain convention to avoid naming collisions:
+
 - `com.company.project` — commercial/public
 - `org.project` — open source
 - `io.name.project` — private/startup
@@ -97,6 +106,7 @@ Annotation that tells Lombok (hooks into the compiler) to generate getters, sett
 ## Apache Commons CSV
 
 Library for parsing CSV files:
+
 - `CSVFormat.DEFAULT.builder().setHeader().setSkipHeaderRecord(true).build()` — treats first row as column names
 - `record.get("ColumnName")` — access values by header name, not index
 - All values come out as `String` — must parse manually
@@ -108,6 +118,7 @@ Spring's wrapper for files uploaded via HTTP multipart requests. The whole file,
 ## Type conversion from CSV strings
 
 CSV has no types — everything is a string. Convert manually:
+
 - Date: `LocalDate.parse("2024-03-15")`
 - Decimal: `Double.parseDouble("42.50")`
 

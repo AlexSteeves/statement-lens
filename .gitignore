@@ -6,6 +6,10 @@ target/
 # Environment
 .env
 *.env.local
+run.ps1
+
+# Local Spring Boot config (contains API keys)
+application-local.properties
 
 # Node
 node_modules/

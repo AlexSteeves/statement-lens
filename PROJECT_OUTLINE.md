@@ -44,7 +44,7 @@ Upload a CSV bank statement, get back categorized spending, trend charts, and an
   - Normalize amount sign (negative = debit/expense, positive = income)
   - Return `List<Transaction>`
 
-- [ ] **7. Build the categorization engine**
+- [x] **7. Build the categorization engine**
   - Create `service/CategorizationService.java`
   - Keyword map (case-insensitive description matching):
     - Dining: `restaurant, mcdonald, starbucks, doordash, uber eats, grubhub`
@@ -55,7 +55,7 @@ Upload a CSV bank statement, get back categorized spending, trend charts, and an
     - Other: fallback
   - Takes a `Transaction`, sets its `category` field, returns it
 
-- [ ] **8. Build the aggregation service**
+- [x] **8. Build the aggregation service**
   - Create `service/AggregationService.java`
   - Takes `List<Transaction>`, computes:
     - `totalIncome` and `totalExpenses`
@@ -63,11 +63,11 @@ Upload a CSV bank statement, get back categorized spending, trend charts, and an
     - `byMonth`: list of `{month, income, expenses}` (group by year-month)
     - `topMerchants`: top 5 descriptions by total spend
 
-- [ ] **9. Create the AnalysisResult DTO**
+- [x] **9. Create the AnalysisResult DTO**
   - Create `dto/AnalysisResult.java`
   - Fields: `totalIncome`, `totalExpenses`, `byCategory`, `byMonth`, `topMerchants`, `aiInsight`
 
-- [ ] **10. Expose analysis functions as MCP tools**
+- [x] **10. Expose analysis functions as MCP tools**
   - Create `tools/AnalysisTools.java`
   - Annotate methods with `@Tool` (Spring AI picks these up automatically)
   - Tools to expose:
@@ -77,7 +77,7 @@ Upload a CSV bank statement, get back categorized spending, trend charts, and an
     - `getOverallSummary()` — returns total income, expenses, net
   - Store the current `AnalysisResult` in a request-scoped bean so tools can read it
 
-- [ ] **11. Build the agentic insight service**
+- [x] **11. Build the agentic insight service**
   - Create `service/InsightService.java`
   - Use Spring AI `ChatClient` to start a conversation with Claude
   - Register the `AnalysisTools` with the client
@@ -86,12 +86,12 @@ Upload a CSV bank statement, get back categorized spending, trend charts, and an
   - This is the agentic cycle — Claude decides what to query, not you
   - Wrap in try/catch — return `null` if it fails
 
-- [ ] **12. Create the controller**
+- [x] **12. Create the controller**
   - Create `controller/AnalyzeController.java`
   - `POST /api/analyze` — accepts `MultipartFile`, runs parse → categorize → aggregate → insight, returns `AnalysisResult`
   - `GET /api/health` — returns 200
 
-- [ ] **13. Test the backend**
+- [x] **13. Test the backend**
   - Export a real CSV from your bank
   - Run the app (`.\mvnw.cmd spring-boot:run`)
   - Hit `POST /api/analyze` via curl or Postman with the CSV
@@ -156,24 +156,16 @@ Upload a CSV bank statement, get back categorized spending, trend charts, and an
 
 ### Phase 3 — Polish & Ship
 
-- [ ] **24. Add a Docker Compose file**
-  - `docker-compose.yml` at project root
-  - Two services: `backend` and `frontend`
-  - Pass `ANTHROPIC_API_KEY` as an environment variable to the backend
+- [x] **24. Write the README**
+  - What it does, why MCP matters, tech stack
+  - Setup instructions (backend + frontend)
+  - Sample CSV included
 
-- [ ] **25. Write the README**
-  - What it does (2–3 sentences)
-  - Note on MCP + agentic loop (this is the talking point)
-  - Supported CSV formats (Chase, generic)
-  - Setup instructions (Docker Compose or manual)
-  - Screenshot of the UI
-
-- [ ] **26. Create a GitHub repo and push**
+- [ ] **25. Create a GitHub repo and push**
   - `git init` in `java_project/`
-  - Add `.gitignore` (ignore `target/`, `node_modules/`, `.env`)
   - First commit and push to GitHub
 
-- [ ] **27. Record and commit the demo video**
+- [ ] **26. Record and commit the demo video**
   - Record a screen capture (mp4) showing: upload a CSV → results appear → charts render → AI insight shows
   - Keep it under 2 minutes
   - Add to repo root as `demo.mp4`

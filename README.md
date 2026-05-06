@@ -2,6 +2,8 @@
 
 StatementLens is a bank statement analyzer that turns a raw CSV export into categorized spending breakdowns, monthly trends, and an AI-generated financial insight — all in one upload.
 
+https://github.com/user-attachments/assets/73c3f1dc-8836-47b2-9675-9b2f4571090a
+
 ## Why this project exists
 
 Most financial analysis tools treat your bank data like a black box—they take your statements, process them somewhere you can't see, and hand back numbers you have to trust. StatementLens is different because it runs entirely in your control, using MCP servers as the foundation: Claude reasons through your transactions step-by-step, calling only the tools it needs, showing you exactly how it categorized your spending and why. This matters because MCP servers are becoming the standard way AI systems handle sensitive data—they're transparent, composable, and keep your information local—and StatementLens proves that approach works in practice. You upload a CSV, Claude's agentic loop analyzes it with full visibility into its reasoning, and you get categorized spending, trends, and insights backed by logic you can actually follow. It's not magic; it's architecture.
